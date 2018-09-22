@@ -70,7 +70,7 @@ def outd(s):
 	sys.stdout.write('%d' % int(v))
 	return s[1:]
 
-def trim(s):
+def nop(s):
 	return s[1:]
 
 def if_op(s):
@@ -94,14 +94,14 @@ def set_at(v):
 	return v[:d] + [a] + v[d:]
 """
 
-bots = [trim,inc,ind,outc,outd]
+bots = [inc,ind,outc,outd]
 
 bots = dict(map(lambda x: (x.__name__,x),bots))
 bots.update(dict([
 	binop("add",lambda a,b: a+b),
 	binop("sub",lambda a,b: a-b),
 	binop("mul",lambda a,b: a*b),
-	binop("div",lambda a,b: a/b),
+	binop("div",lambda a,b: a//b),
 	("if",if_op),
 	("exit",exit_op),
 ]))
@@ -109,7 +109,7 @@ bots.update(dict([
 def dprint(s):
 	global debug
 	if debug:
-		print(s)
+		sys.stderr.write(str(s)+'\n')
 
 def get_args(s):
 	assert s[0]=='('
@@ -159,7 +159,7 @@ def interp(s):
 			raise Exception("user @%s is not found" % to)
 
 debug = True
-debug = False
+#debug = False
 
 import os
 if __name__ == '__main__':
@@ -167,6 +167,7 @@ if __name__ == '__main__':
 	# fact
 	s = (
 		'@user apply ` ($a,$c,$r) @trim $c $a $r ` ' + 
+		'.@user trim ` ($r) @if 1 # $r # ` ' + 
 		'.@user fact ` ($a,$c) @sub $a 1 .@if # .@sub $a 1 .@fact .@mul $a $c # .@apply 1 $c ` ' + 
 		'.@ind .@fact .@outd .@exit'
 	)
@@ -194,6 +195,7 @@ if __name__ == '__main__':
 	)
 	print(s)
 	"""
+	# s = "@div 5 3"
 	interp(s)
 
 
