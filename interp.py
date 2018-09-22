@@ -116,7 +116,7 @@ def get_args(s):
 	s = s[1:]
 	d = s.index(')')
 	args,body = s[:d],s[d+2:]
-	args = filter(lambda x: x!='',args.split(','))
+	args = list(filter(lambda x: x!='',args.split(',')))
 	return args,body
 
 # @user name ` ($a,$b) .@hoge $a $b ` “I‚È‚Ì
@@ -181,6 +181,19 @@ if __name__ == '__main__':
 		'.@main 0'
 	)
 	s = open(os.sys.argv[1]).read()
+	"""
+	
+	hs = "Hello, world!"
+	s = "".join(map(lambda x: '.@outc %d ' % ord(x), hs))
+	s = s[1:] + '.@exit'
+	#print(s)
+	s = (
+		'@user f ` ($a,$c,$r) @add $a 1 .@if # $c $a $r # .@exit ` ' + 
+		'.@user main ` () @inc .@f .@outc .@main ` ' + 
+		'.@main'
+	)
+	print(s)
+	"""
 	interp(s)
 
 
