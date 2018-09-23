@@ -133,13 +133,13 @@ def user(s):
 			v,ts = head(ts)
 			vs.append(v)
 		vs.append(ts)
-		dprint(zip(args,vs))
+		#dprint(zip(args,vs))
 		
 		res = body
 		for fr,v in zip(args,vs):
 			res = res.replace(fr,v)
 		# print('return',res)
-		return res
+		return res[1:]
 	
 	bots.update({name: f})
 	
@@ -150,6 +150,10 @@ bots.update({'user':user})
 def interp(s):
 	while len(s)>0:
 		dprint(s)
+		if s.find(' @') != -1:
+			sys.stderr.write('too many mention\n')
+			exit(1)
+		
 		to,s = head(s)
 		assert to[0]=="@"
 		to = to[1:]
@@ -166,19 +170,17 @@ if __name__ == '__main__':
 	#s = '@in .@sub 1 .@if .@fact .@f'
 	# fact
 	s = (
-		'@user apply ` ($a,$c,$r) @trim $c $a $r ` ' + 
-		'.@user trim ` ($r) @if 1 # $r # ` ' + 
-		'.@user fact ` ($a,$c) @sub $a 1 .@if # .@sub $a 1 .@fact .@mul $a $c # .@apply 1 $c ` ' + 
+		'@user fact ` ($a,$c,$r) .@sub $a 1 .@if # .@sub $a 1 .@fact .@mul $a $c $r # $c 1 $r ` ' + 
 		'.@ind .@fact .@outd .@exit'
 	)
 	
 	# ‚±‚È‚¢‚¾‚Ì
 	s = (
-		 '@user not ` ($x,$c,$r) @if $x # $c 0 $r # $c 1 $r ` ' + 
-		'.@user xor ` ($a,$b,$c,$r) @if $a # .@not $b $c $r # $c $b $r ` ' + 
-		  '.@user f ` ($a,$c,$r) @add $a 48 .@outc $c $a $r ` ' + 
-		  '.@user g ` ($a,$c,$r) @sub $a 10 .@if # $c $a $r # .@exit ` ' + 
-		'.@user main ` ($a,$c,$r) @inc .@g .@sub 48 .@xor $a .@f .@main $c $r ` ' + 
+		 '@user not ` ($x,$c,$r) .@if $x # $c 0 $r # $c 1 $r ` ' + 
+		'.@user xor ` ($a,$b,$c,$r) .@if $a # .@not $b $c $r # $c $b $r ` ' + 
+		  '.@user f ` ($a,$c,$r) .@add $a 48 .@outc $c $a $r ` ' + 
+		  '.@user g ` ($a,$c,$r) .@sub $a 10 .@if # $c $a $r # .@exit ` ' + 
+		'.@user main ` ($a,$c,$r) .@inc .@g .@sub 48 .@xor $a .@f .@main $c $r ` ' + 
 		'.@main 0'
 	)
 	s = open(os.sys.argv[1]).read()
@@ -193,9 +195,9 @@ if __name__ == '__main__':
 		'.@user main ` () @inc .@f .@outc .@main ` ' + 
 		'.@main'
 	)
-	print(s)
 	"""
 	# s = "@div 5 3"
+	# print(s)
 	interp(s)
 
 

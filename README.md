@@ -38,7 +38,7 @@ addのかわりに引き、掛け、割ります
 `@user hoge 区切り文字 (引数の列) 本体 区切り文字 .残り`
 を飛ばされると、ユーザーhogeができ、プログラムは `残り` になります
 ユーザーhogeにメンションを飛ばした際の挙動は、引数の列と本体によって規定されます。
-`@user hoge | ($a,$b,$r) @add $a $b .@outd $r | .@hoge 3 5 .@huga .@piyo` は
+`@user hoge | ($a,$b,$r) .@add $a $b .@outd $r | .@hoge 3 5 .@huga .@piyo` は
 まずユーザー hoge が定義されてプログラムが `@hoge 3 5 .@huga .@piyo`  となり、
 hoge の本体中の `$a` が `3` で、 `$b` が `5` で、 `$r` が `.@huga .@piyo` に置換され、
 プログラムは `@add 3 5 .@outd .@huga .@piyo` となります。この後、プログラムは `8` を出力して、
