@@ -6,7 +6,7 @@
 旧ドキュメントは[README-old.md](./old-version/README-old.md)にあります．
 
 # Bots
-TSGのslackの#sandbox ではさまざまなbotが動いています．
+TSGのslackの#sandboxではさまざまなbotが動いています．
 ### 例)
 http://hakatashi.hatenadiary.com/entry/2017/12/03/173400
 http://kurogoma.hatenablog.com/entry/2017/12/08/000000
@@ -286,6 +286,5 @@ f x1 ... xn S -> d1[x1/a1, ... xn/an] ... dm[x1/a1, ... xn/an] S (関数fがf(a1
 
 # Misc
 - 関数型言語、継続渡し、動的束縛などが元ネタです．それぞれ知っておくと書く時に役立つかも.
-
   - 冷静になって考えてみると，動的束縛どころではなくnon-capture-avoidingな置換になっているのでなかなか非常識．さすがにこの仕様は修正するかも．
 - 型をつけたtyped botsっていうのを作りたいんですがいいかんじの型システムを思いつけていないので募集中です.
